@@ -4,16 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#090711">
-<title>SemenGratis — Descarga gratuita</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>SemenGratis | Obtén Tu Semen</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg:#090711;
-  --panel:#151222;
   --purple:#9b5cff;
   --pink:#ff4fbd;
-  --white:#fff;
   --muted:#a49bb7;
 }
 * {
@@ -344,21 +341,21 @@ footer {
   <h1>Obtén lo que<br><span>siempre quisiste.</span></h1>
   <p class="subtitle">
     Bienvenido a SemenGratis. La plataforma definitiva
-    para conseguir contenido gratuito, rápido y sin complicaciones.
+    para obtener Semen, rápido y sin complicaciones.
   </p>
   <section class="download-card">
     <div class="file-icon">🎁</div>
     <h2>Tu regalo te está esperando</h2>
-    <p>Descarga gratuita · Sin registro · 100% gratis</p>
+    <p>Obtención gratuita · Sin registro · 100% gratis</p>
     <button class="download-btn" onclick="startDownload()">
-      DESCARGAR GRATIS →
+      OBTÉN TU SEMEN →
     </button>
   </section>
   <section class="features">
     <div class="feature">
       <div>⚡</div>
       <h3>Ultra rápido</h3>
-      <p>Velocidad de descarga supuestamente increíble.</p>
+      <p>Velocidad increíble de obtención.</p>
     </div>
     <div class="feature">
       <div>🔒</div>
@@ -381,7 +378,7 @@ footer {
 <div id="loading">
   <div class="loading-content">
     <div class="loading-icon">📦</div>
-    <h2>Preparando tu descarga...</h2>
+    <h2>Preparando tu obtención...</h2>
     <p id="loading-message">Conectando con los servidores...</p>
     <div class="progress-bg">
       <div id="progress"></div>
@@ -392,11 +389,11 @@ footer {
 <!-- SORPRESA FINAL -->
 <div id="rickroll">
   <div class="rick-content">
-    <div class="rick-badge">✦ DESCARGA COMPLETADA ✦</div>
+    <div class="rick-badge">✦ OPERACIÓN COMPLETADA ✦</div>
     <h2>¡TE HEMOS <span>TROLEADO!</span> 💀</h2>
     <p>
-      ¿De verdad pensabas que ibas a conseguir algo gratis?
-      JAJAJAJA. ¡Bienvenido al Rickroll!
+      ¿De verdad pensabas que ibas a conseguir un semen gratis?
+      JAJAJAJA. ¡Haz sidl troleado por imbecil!
     </p>
     <div class="video-container">
       <video
@@ -405,26 +402,26 @@ footer {
         controls
         preload="auto"
       >
-        <source src="rickroll.mp4" type="video/mp4">
-        Tu navegador no puede reproducir este vídeo.
+        <source
+          src="https://cdn.discordapp.com/attachments/1540849255499960416/1566499213624352768/70910a736de7df08985a13e5d3ee8cbc2.mov?ex=6ae8c394&is=6ae77214&hm=731b5b76a30478a64b0f221f0a226e7ba0736c201cc68f613eab94fc00a1482a&"
+          type="video/quicktime">
       </video>
     </div>
     <button class="retry" onclick="restart()">
-      🔄 VOLVER A INTENTAR
+      🔄 VOLVER A CAER
     </button>
     <div class="rick-small">
-      Nunca debiste confiar en este botón. 😂
+      Nunca debiste confiar en este botón, pendejo. 😂
     </div>
   </div>
 </div>
 <script>
 const messages = [
   "Conectando con los servidores...",
-  "Buscando contenido gratuito...",
-  "Verificando tu identidad...",
+  "Verificando disponibilidad...",
   "Preparando tu regalo...",
   "Casi lo tienes...",
-  "Descargando felicidad...",
+  "Procesando solicitud...",
   "Últimos detalles...",
   "Preparando una sorpresa..."
 ];
@@ -450,7 +447,7 @@ function startDownload() {
     if(value >= 100) {
       clearInterval(downloadInterval);
       downloadInterval = null;
-      message.textContent = "¡Descarga completada!";
+      message.textContent = "¡Obtención completada!";
       setTimeout(() => {
         loading.style.display = "none";
         const rickroll = document.getElementById("rickroll");
