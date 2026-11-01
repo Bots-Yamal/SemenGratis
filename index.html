@@ -115,7 +115,8 @@ h1 span {
     font-size: 15px;
 }
 
-.main-button {
+.main-button,
+.obtain-button {
     border: none;
     padding: 19px 35px;
     border-radius: 12px;
@@ -129,7 +130,8 @@ h1 span {
     transition: .25s;
 }
 
-.main-button:hover {
+.main-button:hover,
+.obtain-button:hover {
     transform: translateY(-3px);
     box-shadow: 0 15px 40px #c13bba66;
 }
@@ -177,9 +179,9 @@ footer {
     border-top: 1px solid #ffffff12;
 }
 
-/* CARGA */
+/* PANTALLAS */
 
-#loading {
+.screen {
     display: none;
     position: fixed;
     inset: 0;
@@ -188,29 +190,32 @@ footer {
     justify-content: center;
     align-items: center;
     padding: 25px;
-}
-
-.loading-content {
-    width: 100%;
-    max-width: 420px;
     text-align: center;
 }
 
-.loading-icon {
+.screen-content {
+    width: 100%;
+    max-width: 450px;
+}
+
+.screen-icon {
     font-size: 48px;
     margin-bottom: 25px;
 }
 
-.loading-content h2 {
-    font-size: 25px;
+.screen h2 {
+    font-size: 27px;
     margin-bottom: 12px;
 }
 
-.loading-content p {
+.screen p {
     color: #a9a1b5;
-    font-size: 13px;
-    margin-bottom: 30px;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 28px;
 }
+
+/* BARRA DE CARGA */
 
 .progress-container {
     height: 9px;
@@ -236,30 +241,12 @@ footer {
     font-size: 12px;
 }
 
-/* SORPRESA */
+/* VIDEO */
 
-#rickroll {
-    display: none;
-    position: fixed;
-    inset: 0;
+#videoScreen {
     z-index: 20;
     background: #09060e;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    padding: 20px;
-    text-align: center;
-}
-
-#rickroll h2 {
-    font-size: clamp(28px, 6vw, 48px);
-    margin-bottom: 12px;
-}
-
-#rickroll p {
-    color: #b9a9c5;
-    margin-bottom: 25px;
-    font-size: 14px;
 }
 
 .video-container {
@@ -271,6 +258,7 @@ footer {
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 0 50px #a43ed044;
+    margin-top: 20px;
 }
 
 #rickVideo {
@@ -291,8 +279,11 @@ footer {
     cursor: pointer;
 }
 
-.restart-button:hover {
-    background: #a43ed055;
+#videoError {
+    display: none;
+    color: #ff9cba;
+    font-size: 13px;
+    margin-top: 15px;
 }
 
 @media (max-width: 550px) {
@@ -378,40 +369,64 @@ footer {
 
 <!-- PANTALLA DE CARGA -->
 
-<section id="loading">
-    <div class="loading-content">
-        <div class="loading-icon">📦</div>
+<section class="screen" id="loadingScreen">
+    <div class="screen-content">
+
+        <div class="screen-icon">📦</div>
 
         <h2>Preparando tu descarga...</h2>
 
-        <p id="loadingText">Conectando con los servidores...</p>
+        <p id="loadingText">
+            Conectando con los servidores...
+        </p>
 
         <div class="progress-container">
             <div id="progress"></div>
         </div>
 
         <span id="percentage">0%</span>
+
+    </div>
+</section>
+
+<!-- PANTALLA OBTENER -->
+
+<section class="screen" id="obtainScreen">
+    <div class="screen-content">
+
+        <div class="screen-icon">🎉</div>
+
+        <h2>¡Tu descarga está lista!</h2>
+
+        <p>
+            Hemos preparado todo correctamente.
+            Ya podés obtener tu archivo.
+        </p>
+
+        <button class="obtain-button" onclick="playVideo()">
+            OBTENER →
+        </button>
+
     </div>
 </section>
 
 <!-- PANTALLA FINAL -->
 
-<section id="rickroll">
+<section class="screen" id="videoScreen">
 
-    <h2>¡DESCARGA COMPLETADA! 🎉</h2>
+    <h2>¡TROLEADA COMPLETADA! 🎉</h2>
 
-    <p>Tu archivo está listo. Disfrutá de tu sorpresa.</p>
+    <p>CAISTE PENDEJO PENSASTE QUE IBAS A TENE SEMEN GRATIS, JAJAJAJAJ PUES NO.</p>
 
     <div class="video-container">
-        <video
-            id="rickVideo"
-            playsinline
-            preload="auto"
-            poster=""
-        >
+        <video id="rickVideo" playsinline preload="auto">
             <source src="https://cdn.discordapp.com/attachments/1540849255499960416/1566499213624352768/70910a736de7df08985a13e5d3ee8cbc2.mov?ex=6ae8c394&is=6ae77214&hm=731b5b76a30478a64b0f221f0a226e7ba0736c201cc68f613eab94fc00a1482a&" type="video/quicktime">
         </video>
     </div>
+
+    <p id="videoError">
+        No se pudo reproducir el video. Puede que el enlace haya caducado o que el formato no sea compatible.
+    </p>
 
     <button class="restart-button" onclick="restart()">
         ↻ VOLVER A CAER
@@ -420,13 +435,17 @@ footer {
 </section>
 
 <script>
-const loading = document.getElementById("loading");
-const rickroll = document.getElementById("rickroll");
+const loadingScreen = document.getElementById("loadingScreen");
+const obtainScreen = document.getElementById("obtainScreen");
+const videoScreen = document.getElementById("videoScreen");
+
 const progress = document.getElementById("progress");
 const percentage = document.getElementById("percentage");
 const loadingText = document.getElementById("loadingText");
+
 const video = document.getElementById("rickVideo");
 const startButton = document.getElementById("startButton");
+const videoError = document.getElementById("videoError");
 
 let interval = null;
 
@@ -443,28 +462,7 @@ function startDownload() {
     if (interval) return;
 
     startButton.disabled = true;
-
-    /*
-      Intentamos iniciar el video con sonido
-      directamente desde el toque del usuario.
-      El navegador puede bloquearlo igualmente.
-    */
-
-    video.muted = false;
-    video.currentTime = 0;
-
-    const playPromise = video.play();
-
-    if (playPromise !== undefined) {
-        playPromise.catch(() => {
-            // Si el navegador bloquea el sonido,
-            // intentamos reproducción silenciosa.
-            video.muted = true;
-            video.play().catch(() => {});
-        });
-    }
-
-    loading.style.display = "flex";
+    loadingScreen.style.display = "flex";
 
     let value = 0;
 
@@ -476,7 +474,7 @@ function startDownload() {
         progress.style.width = value + "%";
         percentage.textContent = value + "%";
 
-        let messageIndex = Math.min(
+        const messageIndex = Math.min(
             Math.floor(value / 18),
             messages.length - 1
         );
@@ -488,19 +486,44 @@ function startDownload() {
             interval = null;
 
             setTimeout(() => {
-                loading.style.display = "none";
-                rickroll.style.display = "flex";
-
-                // Reinicia el video si todavía no empezó.
-                if (video.paused) {
-                    video.currentTime = 0;
-                    video.play().catch(() => {});
-                }
-            }, 500);
+                loadingScreen.style.display = "none";
+                obtainScreen.style.display = "flex";
+            }, 600);
         }
 
     }, 180);
 }
+
+function playVideo() {
+    obtainScreen.style.display = "none";
+    videoScreen.style.display = "flex";
+
+    videoError.style.display = "none";
+
+    video.currentTime = 0;
+    video.muted = false;
+
+    // El intento se realiza directamente al tocar OBTENER.
+    const result = video.play();
+
+    if (result !== undefined) {
+        result.catch(() => {
+            // Si el navegador bloquea el sonido,
+            // probamos una vez más sin sonido.
+            video.muted = true;
+
+            video.play().catch(() => {
+                videoError.style.display = "block";
+            });
+        });
+    }
+}
+
+video.addEventListener("error", () => {
+    if (videoScreen.style.display === "flex") {
+        videoError.style.display = "block";
+    }
+});
 
 function restart() {
     clearInterval(interval);
@@ -508,13 +531,14 @@ function restart() {
 
     video.pause();
     video.currentTime = 0;
+    video.muted = false;
 
-    rickroll.style.display = "none";
-    loading.style.display = "none";
+    videoScreen.style.display = "none";
+    obtainScreen.style.display = "none";
+    loadingScreen.style.display = "none";
 
     progress.style.width = "0%";
     percentage.textContent = "0%";
-
     loadingText.textContent = messages[0];
 
     startButton.disabled = false;
